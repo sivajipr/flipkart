@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Flipkart</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+		<!-- font awsome -->
+		<link rel="stylesheet" href="/static/css/font-awesome.min.css">
+		<!-- datepicker -->
+		 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+		<link rel="stylesheet" href="/static/css/style.css">
+		<script src="http://code.jquery.com/jquery-1.11.3.min.js" ></script>
+		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+  	<div id='main_head_id' class='junk_fixed'>
+  		<div class='header-topbar'>
+  			<div class='header-content'>
+  				<img src='/static/images/flipkart-logo2.png' width='149px' height='38px'>
+  				<div class='search-bar-wrap'>
+  				<input class='tftextinput' type="search" name="name" style='width:285px' id="mySearch" placeholder="So, what are you wishing for today?">
+          <a href='cart_list'>
+            	<input class='tfbutton' type="submit" id="mybutton" value='search' />
+  				<button style='color:#027CD5;'><i class="fa fa-shopping-cart"></i>Cart</button></a>
+          </div>
+  				{% block auth %}
+          {% if not user.is_authenticated %}
+  				<ul>
+  				<li class='l1' id='home'><a class='alignmnt' href='sign-up'>Sign up</a></li>
+				<li class='l1' id='home'><a class='alignmnt' href='login'>login</a></li>
+        {% else %}
+        {% block name %}
+        <li class='l1' id='home'><a class='alignmnt' href='users/ edit-profile'>{{user}}</a></li>
+        <li class='l1' id='home'><a class='alignmnt' href='users/logout'>logout</a></li>
+        {% endblock %}
+        {% endif %}
+				</ul>
+				{% endblock %}
+  			</div>
+  		</div>
+  	</div>
+
+  			
+
+  			{% block content %}{% endblock %}
+  			</body>
+

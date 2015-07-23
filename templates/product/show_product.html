@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<div class='container'>
+<div class='maincontent'>
+	<div class='row'>
+		<div class="col-md-3">
+			<img src="/media/{{product.photo}}" class="productImage  current" style="max-width:100%">
+		</div>
+		<div class="col-md-9">
+			<h1>{{product.name}}</h1>
+			<hr>
+			<div>
+			<i class="fa fa-pencil"></i>
+			<span class="write-a-review-text">Write a REVIEW</span>
+			</div>
+			<div>
+			<i class="fa fa-heart"></i>
+			<span class="write-a-review-text">Add to Wishlist</span>
+			</div>
+			<hr>
+			<div class="price old tmargin7">
+			MRP.{{product.original_price}}
+			</div>
+			<div>
+			<h1>Rs.{{product.selling_price}}</h1>
+			</div>
+			<div class="add-to-cart-container buy-now-hack-wrap omniture-field" data-omnifield="eVar14" data-evar14="In Stock">
+
+                    <form name="buy-now-form" method="post" action="add_to_cart/{{product.id}}">{% csrf_token %}
+                       
+                    <input type="submit" class="btn btn-danger btn-buy-now btn-big dis" value="Add to Cart">
+
+                </form>
+
+            </div>
+            <div class="tmargin10 omniture-field" data-omnifield="eVar14" data-evar14="In Stock">
+                    <form name="express-checkout-form" method="post" action="https://www.flipkart.com/checkout/init">
+                   
+                        <input type="submit" class="btn btn-success btn-express-checkout btn-big dis" value="Buy Now">
+                    </form>
+                </div>
+		</div>
+	</div>
+	</div>
+</div>
+				{% endblock %}
