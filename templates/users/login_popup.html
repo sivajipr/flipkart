@@ -1,0 +1,119 @@
+{% block content %}
+<input type="button" id='close' value='x' class="close crossalign" data-dismiss="modal">
+<h1 style='margin-left: 20px;'>Login</h1>
+<div>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li id='login_userer' role="presentation" class="active"><a href="#login_user" aria-controls="home" role="tab" data-toggle="tab">Log in as a user</a></li>
+    <li id='login_merchanter' role="presentation"><a href="#login_merchant" aria-controls="profile" role="tab" data-toggle="tab">Log in as a merchant</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="login_user">
+    	<div class='user_error erroralign'></div>
+    	<form class="form-horizontal" id='user_form' style='margin-top:5%'>{% csrf_token %}
+        <div class="form-group">
+    <label class="col-sm-2 control-label" style='margin-left: 12px;'>User Name</label>
+    <div class="col-sm-10" style='width:39%'>
+        {{ form.username }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label" style='margin-left: 12px;'>Password</label>
+    <div class="col-sm-10" style='width:39%'>
+        {{ form.password }}
+    </div>
+  </div>
+   <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <input type="button" id='signclickuser' value='Sign In' class="btn btn-default">
+      <a href='/users/forget-password'>Forget your password</a>
+    </div>{{error}}
+  </div></form>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="login_merchant">
+    	<div class='merchant_error erroralign'></div>
+    	<form class="form-horizontal" id='merchant_form' method="post" action="/merchant/login" style='margin-top:5%'>{% csrf_token %}
+        <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label" style='margin-left: 12px;'>User Name</label>
+    <div class="col-sm-10" style='width:39%'>
+        {{ form.username }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label" style='margin-left: 12px;'>Password</label>
+    <div class="col-sm-10" style='width:39%'>
+        {{ form.password }}
+    </div>
+  </div>
+   <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <input type="button" id='signclickmerchant' value='Sign in' class="btn btn-default">
+      <a href='/users/forget-password'>Forget your password</a>
+      {{form.errors}}
+    </div>
+  </div>
+    </form>
+    </div>
+  </div>
+
+</div>
+<script>
+$('#signclickmerchant').click(function(){
+	var datas=($("#merchant_form").serialize());
+	url = '/merchants/login'
+	$.ajax({
+		url:url,
+		type:'POST',
+		data:datas,
+		success: function(data, textStatus, jqXHR) {
+	       	if (data.error){
+	       		$(".merchant_error").html(data.error);
+	       		$("#user_form")[0].reset();
+	       	}
+	       	else{
+            window.location.href = '/merchant'
+          }
+	    },
+	    error: function() {
+	        alert("ajaxfail");
+	    }
+	})
+
+});
+$('#signclickuser').click(function(){
+	var details = ($("#user_form").serialize());
+	url = '/users/login'
+	console.log(url);
+	$.ajax({
+		url:url,
+		type: 'POST',
+		data:details,
+		success: function(data, textStatus, jqXHR) {
+	       	if (data.error){
+	       		$(".user_error").html(data.error);
+	       		$("#user_form")[0].reset();
+	       	}
+	       	else{
+            location.reload();
+        }
+	    },
+	    error: function() {
+	        alert("ajaxfail");
+	    }
+	});
+});
+$('#login_userer').click(function(){
+    $('.merchant_error').html("");
+});
+$('#login_merchanter').click(function(){
+    $('.user_error').html("");
+});
+$('#close').click(function(){
+    $('.user_error').html("");
+    $('.merchant_error').html("");
+});
+</script>
+{% endblock %}

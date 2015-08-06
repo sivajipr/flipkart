@@ -9,7 +9,7 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^users/', include('users.urls')),
-    url(r'^merchant/', include('merchant.urls')),
+    url(r'^merchants/', include('merchant.urls')),
     url(r'^product/', include('product.urls')),
     url(r'^cart/', include('cart.urls')),
     url(r'^merchant', 'merchant.views.home'),

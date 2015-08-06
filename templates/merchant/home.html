@@ -1,17 +1,34 @@
 {% extends "base.html" %}
-{% block name %}
-	<ul>
-        <li class='l1' id='home'><a class='alignmnt' href='users/ edit-profile'>{{user}}</a></li>
-        <li class='l1' id='home'><a class='alignmnt' href='users/logout'>logout</a></li>
-         <li class='l1' id='home'><a class='alignmnt' href='product/add'>add product</a></li>
-    </ul>
-{% endblock %}
+{% block cartpurchase %}{% endblock %}
 {% block content %}
 	<div class='container'>
 		<div class='row'>
 			<div class='col-md-12'>
 				<div class='maincontent'>
-				sdfghjkgtijk
+				<div class="ccarousel-wrapper"><ul class="list-items list-carousel no-js">
+									{% for product in products %}
+									{% if product.quantity > 0 %}
+									<div class = 'col-md-3'>
+					<li class="offers-wrap ccarousel-item no-js fk-inline-block" style="width: 182px;">
+                        <a class="dealsLink" href="/merchants/product/{{product.id}}" data-tracking-id="Just At Rs 1199">
+                        	<div class="fk-text-center offerWrap">
+                              <div class="offerTitleWrap">
+                                <div class="offerTitle">Just At Rs {{product.selling_price}}</div>
+                                <div class="borderRed"></div>
+                                <div class="triangle"></div>
+                              </div>
+						      <div class="fclear"></div>
+                                <div class="price old tmargin7">Rs. {{product.original_price}}</div>
+                                <div class="newPrice fk-font-15">Rs. {{product.selling_price}}</div>
+						      <div class="fk-text-center pImgContainer">
+								<img class="vmiddle" src='/media/{{product.photo}}'>
+							  </div>
+                              <div class="offerSubTitle">
+                                    {{product.name}}
+                              </div>
+                            </div>
+                        </a>
+                    </li></div>{% endif %}{% endfor %}</ul></div>
 				</div>
 			</div>
 		</div>

@@ -1,0 +1,196 @@
+{% block content %}
+<input type="button" id='close' value='x' class="close crossalign" data-dismiss="modal">
+<h1 style='margin-left: 20px;'>Signup</h1>
+<div>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" id="login_userer" class="active"><a href="#signup_user" aria-controls="home" role="tab" data-toggle="tab">Sign up as a user</a></li>
+    <li id="login_merchanter" role="presentation"><a href="#signup_merchant" aria-controls="profile" role="tab" data-toggle="tab">Sign up as a merchant</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="signup_user">
+    	<div class="user_error erroralign"></div>
+      <form class="form-horizontal" id='user_form' method='post' style='margin-top:35px'>{% csrf_token %}
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label" style='margin-left: 12px;'>User Name</label>
+    <div class="col-sm-8">
+      {{ form1.username }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label" style='margin-left: 12px;'>First name</label>
+    <div class="col-sm-8">
+      {{ form1.first_name }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label" style='margin-left: 12px;'>Last name</label>
+    <div class="col-sm-8">
+      {{ form1.last_name }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label" style='margin-left: 12px;'>Email</label>
+    <div class="col-sm-8">
+      {{ form1.email }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label" style='margin-left: 12px;'>Password</label>
+    <div class="col-sm-8">
+      {{ form1.password1 }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label" style='margin-left: 12px;'>Re enter password</label>
+    <div class="col-sm-8">
+      {{ form1.password2 }}
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <input type="button" id='signclickuser' value='Sig in' class="btn btn-default" />
+    </div>
+  </div></form>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="signup_merchant">
+      <div class='merchant_error erroralign'></div>
+    	<form class="form-horizontal" id='merchant_form' method='post' style='margin-top:35px'>{% csrf_token %}
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label" style='margin-left: 12px;'>User Name</label>
+    <div class="col-sm-8">
+      {{ form1.username }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label" style='margin-left: 12px;'>First name</label>
+    <div class="col-sm-8">
+      {{ form1.first_name }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label" style='margin-left: 12px;'>Last name</label>
+    <div class="col-sm-8">
+      {{ form1.last_name }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label" style='margin-left: 12px;'>Email</label>
+    <div class="col-sm-8">
+      {{ form1.email }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label" style='margin-left: 12px;'>Company</label>
+    <div class="col-sm-8">
+      {{ form2.company }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label" style='margin-left: 12px;'>Address 1</label>
+    <div class="col-sm-8">
+      {{ form2.address1 }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label" style='margin-left: 12px;'>Address 2</label>
+    <div class="col-sm-8">
+      {{ form2.address2 }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label" style='margin-left: 12px;'>Address 3</label>
+    <div class="col-sm-8">
+      {{ form2.address3 }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label" style='margin-left: 12px;'>Phone</label>
+    <div class="col-sm-8">
+      {{ form2.phone_number }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label" style='margin-left: 12px;'>Password</label>
+    <div class="col-sm-8">
+      {{ form1.password1 }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label" style='margin-left: 12px;'>Re enter password</label>
+    <div class="col-sm-8">
+      {{ form1.password2 }}
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <input type="button" id='signclickmerchant' value='Sign In' class="btn btn-default" />
+    </div>
+  </div></form>
+    </div>
+  </div>
+
+</div>
+<script>
+
+$('#signclickuser').click(function(){
+  var details = ($("#user_form").serialize());
+  url = '/users/sign-up'
+  console.log(url);
+  $.ajax({
+    url:url,
+    type: 'POST',
+    data:details,
+    success: function(data, textStatus, jqXHR) {
+          if (data.error){
+            $('.user_error').html(data.error);
+            $("#user_form")[0].reset();
+          }
+          else
+          {
+            location.reload();
+          }
+      },
+      error: function() {
+          alert("ajaxfail");
+      }
+  });
+});
+
+$('#signclickmerchant').click(function(){
+  var data = ($("#merchant_form").serialize());
+  url = '/merchants/sign-up'
+  console.log(url);
+  $.ajax({
+    url:url,
+    type: 'POST',
+    data:data,
+    success: function(data, textStatus, jqXHR) {
+          if (data.error){
+            $('.merchant_error').html(data.error);
+            $("#merchant_form")[0].reset();
+          }
+          else
+          {
+            location.reload();
+          }
+      },
+      error: function() {
+          alert("ajaxfail");
+      }
+  });
+});
+$('#login_userer').click(function(){
+    $('.merchant_error').html("");
+});
+$('#login_merchanter').click(function(){
+    $('.user_error').html("");
+});
+$('#close').click(function(){
+    $('.user_error').html("");
+    $('.merchant_error').html("");
+});
+</script>
+{% endblock %}

@@ -3,7 +3,18 @@ from product.models import *
 
 
 class ProductForm(forms.ModelForm):
-	photo = forms.FileField()
-	class Meta:
+    photo = forms.FileField()
+
+    def __init__(self, *args, **kwargs):
+        super(ProductForm, self).__init__(*args, **kwargs)
+        self.fields['name'].required = True
+        self.fields['category'].required = True
+        self.fields['selling_price'].required = True
+        self.fields['original_price'].required = True
+        self.fields['quantity'].required = True
+        self.fields['photo'].required = True
+
+    class Meta:
 		model = Product
 		exclude = ('merchant',)
+	

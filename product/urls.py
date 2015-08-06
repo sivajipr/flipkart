@@ -11,5 +11,6 @@ urlpatterns = patterns('',
     url(r'^cart_list', 'cart.views.cart_list'),
     url(r'^add', 'product.views.add_product'),
     url(r'^(?P<id>[0-9]{1,})', 'product.views.show_product'),
-	   
+    url(r'^buy-now/(?P<address_id>[0-9]{1,})/(?P<product_id>[0-9]{1,})', 'product.views.buy_product'),
+    url(r'^buyerror/(?P<id>[0-9]{1,})', 'product.views.buyerror'),	   
 )

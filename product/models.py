@@ -18,3 +18,11 @@ class Product(models.Model):
 
 	def __unicode__(self):
 		return '{0}'.format(self.name)
+
+class Gallery(models.Model):
+	product = models.ForeignKey('Product', related_name = "post_attach", null=True, blank=True)
+	url = models.CharField(max_length=1000, null=True, blank=True)
+	create_date = models.DateTimeField(auto_now_add=True)
+
+	def __unicode__ (self):
+		return self.product.title if self.product and self.product.title else None

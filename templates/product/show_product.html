@@ -4,7 +4,10 @@
 <div class='maincontent'>
 	<div class='row'>
 		<div class="col-md-3">
+		<input id="hidden" type="hidden" value="{{product.id}}" />
+			<a href="/media/{{product.photo}}" data-featherlight="image">
 			<img src="/media/{{product.photo}}" class="productImage  current" style="max-width:100%">
+			</a>
 		</div>
 		<div class="col-md-9">
 			<h1>{{product.name}}</h1>
@@ -26,21 +29,112 @@
 			</div>
 			<div class="add-to-cart-container buy-now-hack-wrap omniture-field" data-omnifield="eVar14" data-evar14="In Stock">
 
-                    <form name="buy-now-form" method="post" action="add_to_cart/{{product.id}}">{% csrf_token %}
+                    <!-- <form name="buy-now-form" method="post" action="/product/add_to_cart/{{product.id}}">{% csrf_token %} -->
                        
-                    <input type="submit" class="btn btn-danger btn-buy-now btn-big dis" value="Add to Cart">
+                    <input id='add_to_cart' type="button" class="btn btn-danger btn-buy-now btn-big dis" value="Add to Cart">
 
-                </form>
+                <!-- </form> -->
+
 
             </div>
             <div class="tmargin10 omniture-field" data-omnifield="eVar14" data-evar14="In Stock">
-                    <form name="express-checkout-form" method="post" action="https://www.flipkart.com/checkout/init">
-                   
-                        <input type="submit" class="btn btn-success btn-express-checkout btn-big dis" value="Buy Now">
-                    </form>
+                    
+                    {% if user.is_authenticated %}
+                    	{% if product.quantity > 0 %}
+                    		<a name="express-checkout-form" href="/users/address-verify/{{product.id}}">
+                     		<div class="btn btn-success btn-express-checkout btn-big dis">
+                     	{% else %}
+                     		<div class="btn btn-success btn-express-checkout btn-big dis buynow">
+                     	{% endif %}
+                    {% else %}
+                     	<div class="btn btn-big dis">
+                    {% endif %}
+                        Buy Now </div>
+                    
+                    </a>
+                    {{error}}
                 </div>
+                	<!-- modal for login -->
+					<div class="modal fade" id="LogInModal" role="dialog">
+				    	<div class="modal-dialog">
+				 			<div class="modal-content">
+				        		<div class="modal-body">
+				        		</div>
+				        	</div>
+				        </div>
+				    </div>
+						<!-- end modal -->
+							<!-- modal for sign-up -->
+					<div class="modal fade" id="SignuPModal" role="dialog">
+				    	<div class="modal-dialog">
+				 			<div class="modal-content">
+				        		<div class="modal-body">
+				        		</div>
+				        	</div>
+				        </div>
+				    </div>
+						<!-- end modal -->
 		</div>
 	</div>
 	</div>
 </div>
+<script type="text/javascript">
+        $(document).ready(function() {
+
+          $('.image-popup-no-margins').magnificPopup({
+            type: 'image',
+            closeOnContentClick: true,
+            closeBtnInside: false,
+            fixedContentPos: true,
+            mainClass: 'mfp-no-margins mfp-with-zoom', // class to remove default margin from left and right side
+            image: {
+              verticalFit: true
+            },
+            zoom: {
+              enabled: true,
+              duration: 300 // don't foget to change the duration also in CSS
+            }
+          });
+
+        });
+      </script> 
+<script>
+
+$('#add_to_cart').click(function(){
+	var product_id = $('#hidden').val()
+	var url ='/product/add_to_cart/'+product_id;
+	console.log(url);
+
+		$.ajax({
+	         url: url,
+	         type: 'POST',
+	         success: function(data, textStatus, jqXHR) {
+	         	alert(data.error)
+
+	           },
+	         error: function() {
+	           alert("ajaxfail");
+	           }
+
+	       });
+
+});
+$('.buynow').click(function(){
+	var product_id = $('#hidden').val()
+	var url ='/product/buyerror/'+product_id;
+	$.ajax({
+	         url: url,
+	         type: 'POST',
+	         success: function(data, textStatus, jqXHR) {
+	         	alert(data.error)
+
+	           },
+	         error: function() {
+	           alert("ajaxfail");
+	           }
+
+	       });
+	return false
+});
+</script>
 				{% endblock %}

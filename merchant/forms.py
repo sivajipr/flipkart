@@ -24,11 +24,11 @@ class MerchantSignUpForm(forms.Form):
  				return self.cleaned_data
 
 class MerchantForm(forms.ModelForm):
-	company = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control form-align','placeholder':'Username'}))
-	address1 = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control form-align','placeholder':'Username'}))
-	address2 = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control form-align','placeholder':'Username'}))
-	address3 = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control form-align','placeholder':'Username'}))
-	phone_number = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control form-align','placeholder':'Username'}))
+	company = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'form-control form-align','placeholder':'Company','required':'false'}))
+	address1 = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control form-align','placeholder':'Address1'}))
+	address2 = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control form-align','placeholder':'Address2'}))
+	address3 = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control form-align','placeholder':'Address3'}))
+	phone_number = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control form-align','placeholder':'Phone Number'}))
 	class Meta:
 		model = Merchant
 		fields = ('company', 'address1', 'address2','address3','phone_number')

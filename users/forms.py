@@ -40,3 +40,13 @@ class ProfileForm(forms.ModelForm):
 	class Meta:
 		model=Profile
 		fields = ('place',)
+
+class AddressForm(forms.ModelForm):
+	class Meta:
+		model = Address
+		exclude = ('user',)
+
+class BuyForm(forms.ModelForm):
+	class Meta:
+		model = Buy
+		fields = ('quantity',)

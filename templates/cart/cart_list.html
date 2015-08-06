@@ -4,20 +4,48 @@
 <div class='maincontent'>
 	<div class='row'>
 		<div class="col-md-8 col-md-offset-2 line">
+		{% if carts %}
 		{% for cart in carts %}
-		<div class='row'>
+		<div class='cart-item row' >
 			<div class="col-md-2">
 				<img class="vmiddle" src='/media/{{cart.product.photo}}'>
 			</div>
 			<div class="col-md-9">
 				<h4>{{cart.product.name}}</h4>
 				<b>Rs.{{cart.product.selling_price}}</b>
+				<input id="hidden" type="hidden" value="{{cart.id}}" />
+				<input class='cart' type="button" value='Remove'>
 			</div>
 		</div>
 		{% endfor %}
+		{% else %}
+		<h4 class='text-center'>no items in the cart</h4>
+		<img style="width:325px; margin-left: 210px;" src='/static/images/cart_empty.jpeg'>
+		{% endif %}
 		</div>
 		</div>
 	</div>
 </div>
 </div>
+<script>
+$('.cart').click(function(){
+	var elem = $(this);
+	var cart_id = $('#hidden').val()
+	console.log(cart_id)
+	var url='/cart/remove/'+cart_id
+	$.ajax({
+	         url: url,
+	         type: 'POST',
+	         success: function(data, textStatus, jqXHR) {
+	         	$(elem).closest(".cart-item").html("");
+
+	           },
+	         error: function() {
+	         	a.remove();
+	           alert("ajaxfail");
+	           }
+
+	       });
+});
+</script>
 {% endblock %}

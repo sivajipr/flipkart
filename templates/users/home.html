@@ -1,23 +1,16 @@
 {% extends "base.html" %}
-{% block name %}
-        <li class='l1' id='home'><a class='alignmnt' href='users/ edit-profile'>{{user}}</a></li>
-        <li class='l1' id='home'><a class='alignmnt' href='users/logout'>logout</a></li>
-
-{% endblock %}
-
 {% block content %}
-{% if user.is_authenticated %}
 	<div class='container'>
 		<div class='row'>
 			<div class='col-md-12'>
 				<div class='maincontent'>
-					
-						
-							<div class='row'>
+
 									<div class="ccarousel-wrapper"><ul class="list-items list-carousel no-js">
 									{% for product in products %}
+									{% if product.quantity > 0 %}
+									<div class = 'col-md-3'>
 					<li class="offers-wrap ccarousel-item no-js fk-inline-block" style="width: 182px;">
-                        <a class="dealsLink" href="product/{{product.id}}" data-tracking-id="Just At Rs 1199">
+                        <a class="dealsLink" href="/product/{{product.id}}" data-tracking-id="Just At Rs 1199">
                         	<div class="fk-text-center offerWrap">
                               <div class="offerTitleWrap">
                                 <div class="offerTitle">Just At Rs {{product.selling_price}}</div>
@@ -28,7 +21,6 @@
                                 <div class="price old tmargin7">Rs. {{product.original_price}}</div>
                                 <div class="newPrice fk-font-15">Rs. {{product.selling_price}}</div>
 						      <div class="fk-text-center pImgContainer">
-								<!-- <img class="vmiddle" src='http://cdn2.gsmarena.com/vv/bigpic/nokia-lumia-735.jpg'> -->
 								<img class="vmiddle" src='/media/{{product.photo}}'>
 							  </div>
                               <div class="offerSubTitle">
@@ -36,14 +28,32 @@
                               </div>
                             </div>
                         </a>
-                    </li>{% endfor %}</ul></div>
-					
+                    </li></div>{% endif %}{% endfor %}</ul></div>
+						<!-- modal for login -->
+					<div class="modal fade" id="LogInModal" role="dialog">
+				    	<div class="modal-dialog">
+				 			<div class="modal-content">
+				        		<div class="modal-body">
+				        		</div>
+				        	</div>
+				        </div>
+				    </div>
+						<!-- end modal -->
+							<!-- modal for sign-up -->
+					<div class="modal fade" id="SignuPModal" role="dialog">
+				    	<div class="modal-dialog">
+				 			<div class="modal-content">
+				        		<div class="modal-body">
+				        		</div>
+				        	</div>
+				        </div>
+				    </div>
+						<!-- end modal -->
+
+
 							</div>
 						</div>
 					
 				</div>
 			</div>
-		</div>
-	</div>
-	{% endif %}
 {% endblock %}

@@ -13,36 +13,42 @@
     <label for="inputEmail3" class="col-sm-2 control-label">User Name</label>
     <div class="col-sm-8">
     	{{ form1.username }}
+      {{form1.errors.username}}
     </div>
   </div>
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 control-label">First name</label>
     <div class="col-sm-8">
     	{{ form1.first_name }}
+      {{form1.errors.first_name}}
     </div>
   </div>
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 control-label">Last name</label>
     <div class="col-sm-8">
     	{{ form1.last_name }}
+      {{form1.errors.last_name}}
     </div>
   </div>
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
     <div class="col-sm-8">
     	{{ form1.email }}
+      {{form1.errors.email}}
     </div>
   </div>
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 control-label">Password</label>
     <div class="col-sm-8">
     	{{ form1.password1 }}
+      {{form1.errors.password1}}
     </div>
   </div>
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 control-label">Re enter password</label>
     <div class="col-sm-8">
     	{{ form1.password2 }}
+      {{form1.errors.password2}}
     </div>
   </div>
   <div class="form-group">
@@ -59,7 +65,6 @@
       <button type="submit" class="btn btn-default">Sign in</button>
     </div>
   </div>
-  {{form.errors}}
   <div class='clearfix' style='border-bottom:2px solid #FAD163; width:100%; margin-bottom:20px'></div>
 </form>
 						</div></div></div></div>

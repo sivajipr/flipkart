@@ -4,16 +4,18 @@ from product.models import Product
 from merchant.models import Merchant
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
+from users.models import Address, Buy
+from users.forms import BuyForm
+from django.views.decorators.csrf import csrf_exempt
+import json
 # Create your views here.
 
 def add_product(request):
 	user = request.user
-	print request
 	merchant = Merchant.objects.get(user=user)
 	if request.method == 'POST':
 		form = ProductForm(request.POST, request.FILES)
 		if form.is_valid():
-			print form.cleaned_data['photo']
 			product = Product(merchant=merchant,name=form.cleaned_data['name'],
 							  category=form.cleaned_data['category'],
 							  selling_price=form.cleaned_data['selling_price'],
@@ -21,7 +23,10 @@ def add_product(request):
 							  quantity=form.cleaned_data['quantity'],
 							  photo = request.FILES['photo'])
 			product.save()
-		return HttpResponseRedirect('/merchant')
+			return HttpResponseRedirect('/merchant')
+
+		else:
+			pass
 	else:
 		form = ProductForm()
 	variables = RequestContext(request, {'form': form})
@@ -30,3 +35,32 @@ def add_product(request):
 def show_product(request,id):
 	product = Product.objects.get(id=id)
 	return render(request,'product/show_product.html',{'product':product})
+
+def buy_product(request, address_id, product_id):
+	user = request.user
+	address = Address.objects.get(id=address_id)
+	product = Product.objects.get(id=product_id)
+	if request.method =='POST':
+		form = BuyForm(request.POST)
+		print form
+		if (product.quantity-form.cleaned_data['quantity'])>=0:
+			product.quantity = product.quantity-form.cleaned_data['quantity']
+			buy = Buy(user=user, address=address,product=product,status=1, quantity=form.cleaned_data['quantity'])
+			buy.save()
+			product.save()
+			return HttpResponse()
+		else:
+			error = '%d pieces are not available' %form.cleaned_data['quantity']
+			data = {'error':error}
+			return HttpResponse(json.dumps(data), content_type="application/json")
+	else:
+		form = BuyForm()
+	variables = RequestContext(request, {'form': form, 'product':product,'address':address})
+	return render_to_response('product/buy_conform.html', variables)
+
+@csrf_exempt
+def buyerror(request,id):
+	print 'assssssssssssss'
+	error = 'This item is not available'
+	data = {'error':error}
+	return HttpResponse(json.dumps(data), content_type="application/json")

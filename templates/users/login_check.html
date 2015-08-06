@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% block login %}{% endblock %}
 {% block content %}
 <div class='container'>
 <div class='row'>
@@ -8,8 +9,43 @@
 							<h4>Login Conversion</h4>
 						</div>
 						<ul>
-  					<li class='l1' id='home'><a class='alignmnt' href='users/login'>Login as a user</a></li>
-					<li class='l1' id='home'><a class='alignmnt' href='merchant/login'>Login as a merchant</a></li>
+  					<li class='l1'><a class='alignmnt' href='/users/login' data-toggle="modal" data-target="#myModal">Login as a user</a></li>
+					<li class='l1' id='home'><a class='alignmnt' href='merchant/login' data-toggle="modal" data-target="#myModal">Login as a merchant</a></li>
 						</ul>
-</div></div></div></div>
+						<div class='clearfix'></div>
+						<div class="ccarousel-wrapper"><ul class="list-items list-carousel no-js">
+									{% for product in products %}
+									{% if product.quantity > 0 %}
+									<div class = 'col-md-3'>
+					<li class="offers-wrap ccarousel-item no-js fk-inline-block" style="width: 182px;">
+                        <a class="dealsLink" href="/product/{{product.id}}" data-tracking-id="Just At Rs 1199">
+                        	<div class="fk-text-center offerWrap">
+                              <div class="offerTitleWrap">
+                                <div class="offerTitle">Just At Rs {{product.selling_price}}</div>
+                                <div class="borderRed"></div>
+                                <div class="triangle"></div>
+                              </div>
+						      <div class="fclear"></div>
+                                <div class="price old tmargin7">Rs. {{product.original_price}}</div>
+                                <div class="newPrice fk-font-15">Rs. {{product.selling_price}}</div>
+						      <div class="fk-text-center pImgContainer">
+								<!-- <img class="vmiddle" src='http://cdn2.gsmarena.com/vv/bigpic/nokia-lumia-735.jpg'> -->
+								<img class="vmiddle" src='/media/{{product.photo}}'>
+							  </div>
+                              <div class="offerSubTitle">
+                                    {{product.name}}
+                              </div>
+                            </div>
+                        </a>
+                    </li></div>{% endif %}{% endfor %}</ul></div>
+
+					<div class="modal fade" id="myModal" role="dialog">
+				    	<div class="modal-dialog">
+				 			<div class="modal-content">
+				        		<div class="modal-body">
+				        		</div>
+				        	</div>
+				        </div>
+				    </div>
+				    </div></div></div></div>
 {% endblock %}

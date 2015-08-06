@@ -57,6 +57,21 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'flipkart.urls'
 
 WSGI_APPLICATION = 'flipkart.wsgi.application'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# Host for sending e-mail.
+EMAIL_HOST = 'smtp.gmail.com'
+
+# Port for sending e-mail.
+EMAIL_PORT = 25
+
+# Optional SMTP authentication information for EMAIL_HOST.
+EMAIL_HOST_USER = 'sivaji@sparksupport.com'
+EMAIL_HOST_PASSWORD = 'sivanam777'
+EMAIL_USE_TLS = True
+EMAIL_SUBJECT_PREFIX='[Django]'
+
 STATICFILES_DIRS = (
    os.path.join(BASE_DIR, "static"),
     )
@@ -75,13 +90,17 @@ DATABASES = {
 }
 TEMPLATE_CONTEXT_PROCESSORS =(
     "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.request",
 )
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 

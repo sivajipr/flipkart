@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block cartpurchase %}{% endblock %}
+{% block content %}
+<div class='container'>
+<div class='maincontent'>
+	<div class='row'>
+		<div class="col-md-3">
+		<input id="hidden" type="hidden" value="{{product.id}}" />
+			<a href="/media/{{product.photo}}" data-featherlight="image">
+			<img src="/media/{{product.photo}}" class="productImage  current" style="max-width:100%">
+			</a>
+		</div>
+		<div class="col-md-9">
+			<h1>{{product.name}}</h1>
+			<hr>
+			<div>
+			<i class="fa fa-pencil"></i>
+			<span class="write-a-review-text">REVIEWS</span>
+			</div>
+			<hr>
+			<div>
+			<h1>Rs.{{product.selling_price}}</h1>
+			</div>
+			<div>
+			<h3>STOCK: {{product.quantity}}</h3>
+			</div>
+			<div class="add-to-cart-container buy-now-hack-wrap omniture-field" data-omnifield="eVar14" data-evar14="In Stock">
+                       
+                    <input id='add_to_cart' type="button" class="btn btn-success btn-buy-now btn-big dis" data-toggle="modal" data-target="#DetailsModal" value="Details">
+            </div>
+            <div class="modal fade" id="DetailsModal" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+				    	<div class="modal-body">
+				    	<table style="width:100%">
+				    	<tr>
+				    	<td width='100px'><b>USER</b></td>
+				    	<td width='250px'><b>QUANTITY</b></td>
+				    	<td><b>DATE</b></td>
+				    	</tr>
+				    	{% for buy in buys %}
+				    	<tr>
+				    	<td width='100px'>{{buy.user}}</td>
+				    	<td width='250px'>{{buy.quantity}}</td>
+				    	<td>{{buy.create_date}}</td>
+				    	</tr>
+				    	{% endfor %}
+				    	</table>
+				    	</div>
+				    </div>
+				</div>
+		    </div>
+		</div>
+	</div>
+	</div>
+</div>
+
+				{% endblock %}
