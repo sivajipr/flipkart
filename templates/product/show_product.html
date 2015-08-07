@@ -12,10 +12,17 @@
 		<div class="col-md-9">
 			<h1>{{product.name}}</h1>
 			<hr>
+			<a href = '/product/review_show/{{product.id}}' data-toggle="modal" data-target="#ReviewShowModal">
+			<div>
+			<i class="fa fa-eye"></i>
+			<span class="write-a-review-text">Show Review</span>
+			</div></a>
+			<hr>
+			<a href = '/product/review_write/{{product.id}}' data-toggle="modal" data-target="#ReviewWriteModal">
 			<div>
 			<i class="fa fa-pencil"></i>
 			<span class="write-a-review-text">Write a REVIEW</span>
-			</div>
+			</div></a>
 			<div>
 			<i class="fa fa-heart"></i>
 			<span class="write-a-review-text">Add to Wishlist</span>
@@ -54,6 +61,25 @@
                     </a>
                     {{error}}
                 </div>
+                	<!-- modalfor review show -->
+                	<div class="modal fade" id="ReviewShowModal" role="dialog">
+				    	<div class="modal-dialog">
+				 			<div class="modal-content">
+				        		<div class="modal-body">
+				        		</div>
+				        	</div>
+				        </div>
+				    </div>
+                		<!-- modal for review write -->
+                	<div class="modal fade" id="ReviewWriteModal" role="dialog">
+				    	<div class="modal-dialog">
+				 			<div class="modal-content">
+				        		<div class="modal-body">
+				        		</div>
+				        	</div>
+				        </div>
+				    </div>
+				    <!-- end modal -->
                 	<!-- modal for login -->
 					<div class="modal fade" id="LogInModal" role="dialog">
 				    	<div class="modal-dialog">
@@ -109,16 +135,44 @@ $('#add_to_cart').click(function(){
 	         url: url,
 	         type: 'POST',
 	         success: function(data, textStatus, jqXHR) {
-	         	alert(data.error)
-
+	         	if(data.error=='This item is successfully added to the cart'){
+	         	swal("Yaaah...",data.error, "success");
+	         	}
+	         	else{
+	         	swal("Oops...",data.error, "error");	
+	         	}
 	           },
 	         error: function() {
-	           alert("ajaxfail");
+	           swal("Oops...",'something went wrong', "success");
 	           }
 
 	       });
 
 });
+// $('.review_write').click(function(){
+// 	console.log('pppppp');
+// 	var product_id = $('#hidden').val()
+// 	var url ='/product/review_write/'+product_id;
+// 	console.log(url);
+
+// 		$.ajax({
+// 	         url: url,
+// 	         type: 'POST',
+// 	         success: function(data, textStatus, jqXHR) {
+// 	         	if(data.error=='This item is successfully added to the cart'){
+// 	         	swal("Yaaah...",data.error, "success");
+// 	         	}
+// 	         	else{
+// 	         	swal("Oops...",data.error, "error");	
+// 	         	}
+// 	           },
+// 	         error: function() {
+// 	           swal("Oops...",'something went wrong', "success");
+// 	           }
+
+// 	       });
+
+// });
 $('.buynow').click(function(){
 	var product_id = $('#hidden').val()
 	var url ='/product/buyerror/'+product_id;
@@ -126,7 +180,7 @@ $('.buynow').click(function(){
 	         url: url,
 	         type: 'POST',
 	         success: function(data, textStatus, jqXHR) {
-	         	alert(data.error)
+	         	swal("Oops...",data.error, "error");
 
 	           },
 	         error: function() {

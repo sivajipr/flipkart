@@ -1,6 +1,6 @@
 from django.shortcuts import render,render_to_response
-from product.forms import ProductForm
-from product.models import Product
+from product.forms import ProductForm, ReviewForm
+from product.models import Product, Review
 from merchant.models import Merchant
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
@@ -64,3 +64,36 @@ def buyerror(request,id):
 	error = 'This item is not available'
 	data = {'error':error}
 	return HttpResponse(json.dumps(data), content_type="application/json")
+
+@csrf_exempt
+def review_write(request,id):
+	user=request.user
+	product = Product.objects.get(id=id)
+	if request.method == 'POST':
+		form = ReviewForm(request.POST)
+		if form.is_valid():
+			print 'ssssssssssssssss'
+			review = Review(name=form.cleaned_data['name'],content = form.cleaned_data['content'],
+							user=user,product=product)
+			print 'bbbbbbbbbbbb'
+			review.save()
+			print'qqqqqqqq'
+			return HttpResponse()
+		else:
+			error = 'please write something'
+			data = {'error':error}
+			return HttpResponse(json.dumps(data), content_type="application/json")
+	else:
+		form = ReviewForm()
+	variables = RequestContext(request, {'form': form, 'product':product})
+	return render_to_response('product/review_write.html', variables)
+
+def review_show(request,id):
+	print 1
+	product = Product.objects.get(id=id)
+	print 2
+	reviews = product.review_set.all()
+	print 3
+	return render(request,'product/review_show.html',{'reviews':reviews})
+
+

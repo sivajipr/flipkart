@@ -12,5 +12,7 @@ urlpatterns = patterns('',
     url(r'^add', 'product.views.add_product'),
     url(r'^(?P<id>[0-9]{1,})', 'product.views.show_product'),
     url(r'^buy-now/(?P<address_id>[0-9]{1,})/(?P<product_id>[0-9]{1,})', 'product.views.buy_product'),
-    url(r'^buyerror/(?P<id>[0-9]{1,})', 'product.views.buyerror'),	   
+    url(r'^buyerror/(?P<id>[0-9]{1,})', 'product.views.buyerror'),
+    url(r'^review_write/(?P<id>[0-9]{1,})', 'product.views.review_write'),   
+    url(r'^review_show/(?P<id>[0-9]{1,})', 'product.views.review_show'),
 )

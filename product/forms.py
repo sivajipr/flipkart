@@ -17,4 +17,8 @@ class ProductForm(forms.ModelForm):
     class Meta:
 		model = Product
 		exclude = ('merchant',)
-	
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ('name','content')

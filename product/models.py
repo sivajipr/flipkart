@@ -1,5 +1,6 @@
 from django.db import models
 from merchant.models import Merchant
+from django.contrib.auth.models import User
 # Create your models here.
 class Product(models.Model):
 	CATEGORIES = (
@@ -18,6 +19,12 @@ class Product(models.Model):
 
 	def __unicode__(self):
 		return '{0}'.format(self.name)
+
+class Review(models.Model):
+	name = models.CharField(max_length=20)
+	content = models.TextField(max_length=200)
+	user = models.ForeignKey(User)
+	product = models.ForeignKey(Product)
 
 class Gallery(models.Model):
 	product = models.ForeignKey('Product', related_name = "post_attach", null=True, blank=True)

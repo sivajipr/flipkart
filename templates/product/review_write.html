@@ -1,0 +1,56 @@
+{% block content %}
+<input type="button" id='close' value='x' class="close crossalign" data-dismiss="modal">
+<h1 style='margin-left: 20px;'>Review</h1>
+	<input id="hidden" type="hidden" value="{{product.id}}" />
+<div class="tab-content">
+	<div role="tabpanel" class="tab-pane active">
+	<form class="form-horizontal" method='post' style='margin-top:35px' id='review_form'>{% csrf_token %}
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label" style='margin-left: 12px;'>Title</label>
+    <div class="col-sm-8">
+      {{ form.name }}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label" style='margin-left: 12px;'>Review</label>
+    <div class="col-sm-8">
+      {{ form.content }}
+    </div>
+  </div>
+	<div class="review_error erroralign-review"></div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <input id='review_button' type="button" value='Post' class="btn btn-default" />
+    </div>
+  </div></form>
+    </div></div>
+
+<script>
+$('#review_button').click(function(){
+  var product_id = $('#hidden').val()
+  var details = ($("#review_form").serialize());
+  url = '/product/review_write/'+product_id;
+  console.log(url);
+  $.ajax({
+    url:url,
+    type: 'POST',
+    data:details,
+    success: function(data, textStatus, jqXHR) {
+    	if (data.error){
+            $('.review_error').html(data.error);
+            $("#review_form")[0].reset();
+        }
+        else{
+        	location.reload();
+        }
+      },
+      error: function() {
+          alert("ajaxfail");
+      }
+  });
+});
+$('#close').click(function(){
+    $('.review_error').html("");
+});
+</script>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% block content %}
+<input type="button" id='close' value='x' class="close crossalign" data-dismiss="modal">
+<hr>
+{% for review in reviews %}
+
+<div style='margin-left:20px'>
+	<font size='3'><b>
+		{{review.user}}
+	</b></font>
+	 : {{review.content}}</div>
+	 <hr>
+{% endfor %}
+{% endblock %}

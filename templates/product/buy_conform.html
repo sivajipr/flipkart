@@ -49,7 +49,7 @@ $('#form_submit').click(function(){
     		data:details,
     		success: function(data) {
     		if(data.error){
-        		alert(data.error);
+        		swal("Oops...",data.error, "error");
     		}
     		else{
     			window.location.href = '/users'
