@@ -17,11 +17,8 @@ import json
 def sign_up(request):
     if request.method == 'POST':
         form1 = MerchantSignUpForm(request.POST)
-        print 1
         form2 = MerchantForm(request.POST)
-        print 2
         if form1.is_valid() and form2.is_valid():
-            print 3
             merchant = User.objects.create_user(username=form1.cleaned_data['username'], email=form1.cleaned_data['email'], first_name=form1.cleaned_data['first_name'], password=form1.cleaned_data['password1'], last_name=form1.cleaned_data['last_name'])
             merch = Merchant(user=merchant,company=form2.cleaned_data['company'], address1=form2.cleaned_data['address1'],
             				 address2=form2.cleaned_data['address2'],address3=form2.cleaned_data['address3'],
@@ -31,7 +28,6 @@ def sign_up(request):
             groups.user_set.add(merchant)
             return HttpResponse('/')
         else:
-            print 'ggggggggggg'
             error='below fields are required'
             data = {"error":error}
             return HttpResponse(json.dumps(data), content_type="application/json")
@@ -47,7 +43,6 @@ def sign_up(request):
 
 @csrf_exempt
 def log_in(request):
-    print request.user
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -73,10 +68,18 @@ def home(request):
 		products = Product.objects.filter(merchant=merchant)
 		return render(request, 'merchant/home.html',{'products':products})
 	else:
-		print 'sfvgb'
 		return render(request, 'merchant/home.html')
 
 def show_product(request,p_id):
 	product = Product.objects.get(id=p_id)
 	buy = Buy.objects.filter(product=product)
 	return render(request,'merchant/show_product.html',{'product':product,'buys':buy})
+
+@csrf_exempt
+def extend_product(request,p_id):
+    print 'eddddddddddd'
+    data = request.POST.get('data')
+    product = Product.objects.get(id=p_id)
+    product.quantity += int(data)
+    product.save()
+    return HttpResponse()

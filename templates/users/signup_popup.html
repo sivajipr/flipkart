@@ -162,7 +162,6 @@ $('#signclickuser').click(function(){
 $('#signclickmerchant').click(function(){
   var data = ($("#merchant_form").serialize());
   url = '/merchants/sign-up'
-  console.log(url);
   $.ajax({
     url:url,
     type: 'POST',

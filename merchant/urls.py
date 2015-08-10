@@ -11,5 +11,5 @@ urlpatterns = patterns('',
     url(r'^sign-up', 'merchant.views.sign_up'),
     url(r'^login', 'merchant.views.log_in'),
     url(r'^product/(?P<p_id>[0-9]{1,})', 'merchant.views.show_product'),
-	 
+	url(r'^product_extend/(?P<p_id>[0-9]{1,})', 'merchant.views.extend_product'),
 )

@@ -37,7 +37,6 @@ def login_check(request):
     return render(request,'users/login_check.html',{'products':products})
 
 def sign_up(request):
-    print 'jajajaja'
     if request.method == 'POST':
         form1 = UserSignUpForm(request.POST)
         if form1.is_valid():
@@ -65,16 +64,27 @@ def log_in(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        user = authenticate(username=username, password=password)
-        user_group = User.objects.filter(groups__name='user')
-        if user:
-            if user in user_group:
-                login(request, user)
-                return HttpResponse()
+        if username:
+            if password:
+                user = authenticate(username=username, password=password)
+                user_group = User.objects.filter(groups__name='user')
+                if user:
+                    if user in user_group:
+                        login(request, user)
+                        return HttpResponse()
+                else:
+                    error = 'username or password is not correct'
+                    data = {'error':error}
+                    return HttpResponse(json.dumps(data), content_type="application/json")
+            else:
+                error = 'Password is required'
+                data = {'error':error}
+                return HttpResponse(json.dumps(data), content_type="application/json")
         else:
-            error = 'username or password is not correct'
+            error = 'username is required'
             data = {'error':error}
             return HttpResponse(json.dumps(data), content_type="application/json")
+
     else:
         form = MyAuthenticationForm()
     variables = RequestContext(request, {'form': form})
@@ -189,7 +199,6 @@ def buyed_products(request):
 
 def usersearch(request):
     name = request.GET['name']
-    print name
     products = Product.objects.filter(name__icontains=name)
     return render(request,'users/usersearch.html',{'products':products, 'name':name})
 

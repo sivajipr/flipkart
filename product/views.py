@@ -42,7 +42,6 @@ def buy_product(request, address_id, product_id):
 	product = Product.objects.get(id=product_id)
 	if request.method =='POST':
 		form = BuyForm(request.POST)
-		print form
 		if (product.quantity-form.cleaned_data['quantity'])>=0:
 			product.quantity = product.quantity-form.cleaned_data['quantity']
 			buy = Buy(user=user, address=address,product=product,status=1, quantity=form.cleaned_data['quantity'])
@@ -60,7 +59,6 @@ def buy_product(request, address_id, product_id):
 
 @csrf_exempt
 def buyerror(request,id):
-	print 'assssssssssssss'
 	error = 'This item is not available'
 	data = {'error':error}
 	return HttpResponse(json.dumps(data), content_type="application/json")
@@ -72,12 +70,9 @@ def review_write(request,id):
 	if request.method == 'POST':
 		form = ReviewForm(request.POST)
 		if form.is_valid():
-			print 'ssssssssssssssss'
 			review = Review(name=form.cleaned_data['name'],content = form.cleaned_data['content'],
 							user=user,product=product)
-			print 'bbbbbbbbbbbb'
 			review.save()
-			print'qqqqqqqq'
 			return HttpResponse()
 		else:
 			error = 'please write something'
@@ -89,11 +84,8 @@ def review_write(request,id):
 	return render_to_response('product/review_write.html', variables)
 
 def review_show(request,id):
-	print 1
 	product = Product.objects.get(id=id)
-	print 2
 	reviews = product.review_set.all()
-	print 3
 	return render(request,'product/review_show.html',{'reviews':reviews})
 
 

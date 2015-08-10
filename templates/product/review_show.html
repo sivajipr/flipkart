@@ -1,6 +1,7 @@
 {% block content %}
 <input type="button" id='close' value='x' class="close crossalign" data-dismiss="modal">
-<hr>
+<hr style='margin-top:35px'>
+{% if reviews %}
 {% for review in reviews %}
 
 <div style='margin-left:20px'>
@@ -10,4 +11,9 @@
 	 : {{review.content}}</div>
 	 <hr>
 {% endfor %}
+{% else %}
+<div style='margin-left:20px'>
+	<font size='3' color='green'><b>
+no reviews about this item</b></font></div>
+{% endif %}
 {% endblock %}

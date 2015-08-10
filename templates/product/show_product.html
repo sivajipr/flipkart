@@ -12,17 +12,23 @@
 		<div class="col-md-9">
 			<h1>{{product.name}}</h1>
 			<hr>
-			<a href = '/product/review_show/{{product.id}}' data-toggle="modal" data-target="#ReviewShowModal">
 			<div>
+			<a href = '/product/review_show/{{product.id}}' data-toggle="modal" data-target="#ReviewShowModal">
 			<i class="fa fa-eye"></i>
 			<span class="write-a-review-text">Show Review</span>
-			</div></a>
+			</a>
+			</div>
 			<hr>
-			<a href = '/product/review_write/{{product.id}}' data-toggle="modal" data-target="#ReviewWriteModal">
+			{% if user.is_authenticated %}
 			<div>
+			<a href = '/product/review_write/{{product.id}}' data-toggle="modal" data-target="#ReviewWriteModal">
+			{% else %}
+			<div class='kabhi' style='cursor:pointer'>
+			{% endif %}
 			<i class="fa fa-pencil"></i>
 			<span class="write-a-review-text">Write a REVIEW</span>
-			</div></a>
+			</a>
+			</div>
 			<div>
 			<i class="fa fa-heart"></i>
 			<span class="write-a-review-text">Add to Wishlist</span>
@@ -190,5 +196,8 @@ $('.buynow').click(function(){
 	       });
 	return false
 });
+$('.kabhi').click(function(){
+	swal("Oops...",'You need to login first', "error");
+	});
 </script>
 				{% endblock %}

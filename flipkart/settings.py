@@ -47,7 +47,6 @@ INSTALLED_APPS = (
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -67,8 +66,8 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 25
 
 # Optional SMTP authentication information for EMAIL_HOST.
-EMAIL_HOST_USER = 'sivaji@sparksupport.com'
-EMAIL_HOST_PASSWORD = 'sivanam777'
+EMAIL_HOST_USER = 'username@website.com'
+EMAIL_HOST_PASSWORD = '**********'
 EMAIL_USE_TLS = True
 EMAIL_SUBJECT_PREFIX='[Django]'
 

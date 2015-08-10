@@ -19,6 +19,8 @@ class ProductForm(forms.ModelForm):
 		exclude = ('merchant',)
 
 class ReviewForm(forms.ModelForm):
+    name = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class': 'form-control form-align','placeholder':'Title'}))
+    content = forms.CharField(max_length=200, widget=forms.Textarea(attrs={'class': 'form-control form-align','placeholder':'Write your review'}))
     class Meta:
         model = Review
         fields = ('name','content')

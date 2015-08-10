@@ -6,8 +6,8 @@
 			<div class='col-md-12'>
 				<div class='maincontent'>
 				<div class="ccarousel-wrapper"><ul class="list-items list-carousel no-js">
+				{% if products %}
 									{% for product in products %}
-									{% if product.quantity > 0 %}
 									<div class = 'col-md-3'>
 					<li class="offers-wrap ccarousel-item no-js fk-inline-block" style="width: 182px;">
                         <a class="dealsLink" href="/merchants/product/{{product.id}}" data-tracking-id="Just At Rs 1199">
@@ -28,7 +28,11 @@
                               </div>
                             </div>
                         </a>
-                    </li></div>{% endif %}{% endfor %}</ul></div>
+                    </li></div>{% endfor %}
+                    {% else%}
+                    	You dont<a href='/product/add'> add</a> any item for sell
+                    {% endif %}
+                    </ul></div>
 				</div>
 			</div>
 		</div>

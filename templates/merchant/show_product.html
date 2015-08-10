@@ -24,9 +24,32 @@
 			<div>
 			<h3>STOCK: {{product.quantity}}</h3>
 			</div>
+			<div class="add-to-cart-container buy-now-hack-wrap omniture-field" data-omnifield="eVar14" data-evar14="In Stock" style='margin-bottom:10px'>
+                       
+                    <input id='add_to_cart' type="button" class="btn btn-success btn-buy-now btn-big dis" data-toggle="modal" data-target="#ExtendStockModal" value="Extend Stock">
+            </div>
 			<div class="add-to-cart-container buy-now-hack-wrap omniture-field" data-omnifield="eVar14" data-evar14="In Stock">
                        
-                    <input id='add_to_cart' type="button" class="btn btn-success btn-buy-now btn-big dis" data-toggle="modal" data-target="#DetailsModal" value="Details">
+                    <input id='add_to_cart' type="button" class="btn btn-info btn-buy-now btn-big dis" data-toggle="modal" data-target="#DetailsModal" value="Details">
+            </div>
+            <div class="modal fade" id="ExtendStockModal" role="dialog">
+            	<div class="modal-dialog">
+					<div class="modal-content">
+				    	<div class="modal-body">
+				    	<div>
+				    	current stock = {{product.quantity}}
+				    	</div>
+				    	<div>
+				    	extending stock = <form id='extendstock'>{% csrf_token %}
+				    		<input id='poli' />
+				    	</form>
+				    	</div>
+				    	<div>
+				    	<input id ='buttonextendstock' type='button' value='ok' />
+				    	</div>
+				    	</div>
+				    </div>
+				</div>
             </div>
             <div class="modal fade" id="DetailsModal" role="dialog">
 				<div class="modal-dialog">
@@ -54,5 +77,30 @@
 	</div>
 	</div>
 </div>
+<script>
+$('#buttonextendstock').click(function(){
+	console.log('njekki')
+	var product_id = $('#hidden').val()
+	var url ='/merchants/product_extend/'+product_id;
+	var data = $('#poli').val()
+	console.log(data)
+	console.log(url)
+	console.log(product_id)
+	$.ajax({
+	         url: url,
+	         type: 'POST',
+	         data:{'data':data},
+	         success: function(data, textStatus, jqXHR) {
+	         	swal("Yaah...","Item is extended", "success");
+	         	location.reload();
+	         },
+	         error: function() {
+	           swal("Oops...",'something went wrong', "error");
+	           }
+
+	       });
+});
+
+</script>
 
 				{% endblock %}

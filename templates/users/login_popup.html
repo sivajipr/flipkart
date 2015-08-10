@@ -29,7 +29,7 @@
    <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <input type="button" id='signclickuser' value='Sign In' class="btn btn-default">
-      <a href='/users/forget-password'>Forget your password</a>
+      <a href='/users/forget-password' data-toggle="modal" data-target="#ForgetPasswordModal" >Forget your password</a>
     </div>{{error}}
   </div></form>
     </div>
@@ -60,6 +60,16 @@
   </div>
 
 </div>
+  <!-- modal for forget password -->
+          <div class="modal fade" id="ForgetPasswordModal" role="dialog">
+              <div class="modal-dialog">
+              <div class="modal-content">
+                    <div class="modal-body">
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <!-- end modal -->
 <script>
 $('#signclickmerchant').click(function(){
 	var datas=($("#merchant_form").serialize());
